@@ -30,7 +30,7 @@ will return the owner count
 it will take any account address and will return true or false if the account is an owner or not.
 
 <b>paused(): public</b><br>
-it will return true or false if the contract functionality (<b>lockAmount(), withdrawForUser()</b>) is paused or not.
+it will return true or false if the contract active status is paused or not.
 
 <b>pendingTrades(tradeId): public</b><br>
 it will take any tradeId as string and will return a hash value if exists otherwise zero (0x000..00).
@@ -75,7 +75,7 @@ _account_address is any account address
 
 <b>pauseContract(): onlyAdmin</b><br>
 This function makes the pause status true.<br>
-This status checking applied on (<b>lockAmount(), withdrawForUser()</b>)
+This status check will be used from application
 
 <b>releaseAmount(_tokenContract_address, _tradeId, _seller_address, _buyer_address,_amountWithFee, _totalFee, _success): adminOrOwner</b><br>
 This function first matches the _tradeId and the hash(other parameters) with the previously saved hash(while escrow record) mapping with this _tradeId. Then checks locked amount/escrow fund of the _seller account of a specific token and then (keeps the fee and sends the amount) to the _buyer if the param <b>_success</b> is true, otherwise returns the (amount to seller and doesn't keep any fee). Then updates the escrow fund record for this seller. This function will be used from our backend application actually.<br>
