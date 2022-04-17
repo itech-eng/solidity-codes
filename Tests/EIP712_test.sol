@@ -10,8 +10,8 @@ contract Verifier {
     // string private constant BID_TYPE = "Bid(uint256 amount,Identity bidder)Identity(uint256 userId,address wallet)";
     
     bytes32 private constant EIP712_DOMAIN_TYPEHASH = keccak256(abi.encodePacked(EIP712_DOMAIN));
-    // bytes32 private constant IDENTITY_TYPEHASH = keccak256(abi.encode(IDENTITY_TYPE));
-    // bytes32 private constant BID_TYPEHASH = keccak256(abi.encode(BID_TYPE));
+    // bytes32 private constant IDENTITY_TYPEHASH = keccak256(abi.encodePacked(IDENTITY_TYPE));
+    // bytes32 private constant BID_TYPEHASH = keccak256(abi.encodePacked(BID_TYPE));
     bytes32 private constant DATA_TYPEHASH = keccak256(bytes("Data(string message)"));
     bytes32 private constant DOMAIN_SEPARATOR = keccak256(abi.encode(
         EIP712_DOMAIN_TYPEHASH,
@@ -46,7 +46,7 @@ contract Verifier {
     
     // function hashBid(Bid memory bid) private pure returns (bytes32){
     //     return keccak256(abi.encodePacked(
-    //         "\\x19\\x01",
+    //         "\x19\x01",
     //         DOMAIN_SEPARATOR,
     //         keccak256(abi.encode(
     //             BID_TYPEHASH,
