@@ -32,17 +32,6 @@ contract NFT is ERC721 {
   //   _tokenURIs[_tokenId] = _tokenURI;
   // }
 
-  bool approval = true;
-
-  function setApprovalForAll(bool v) external returns(bool) {
-    approval = v;
-    return true;
-  }
-
-  function isApprovedForAll(address owner, address operator) public view virtual override returns(bool) {
-    return approval;
-  }
-
   function tokenURI(uint256 tokenId) public view virtual override returns(string memory) {
     require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
     return _tokenURIs[tokenId];
