@@ -314,7 +314,7 @@ contract NFTexchange {
         require(buy._totalAmount >= minBidAmountToExecute, "Buy amount is less than min Bid amount to execute the Auction Exchange");
         require(buy._totalAmount >= sell._totalAmount, "Buy amount is less than Sell amount");
 
-        require(block.timestamp >= sell._expiresAt, "Auction isn't finished yet.");
+        // require(block.timestamp >= sell._expiresAt, "Auction isn't finished yet.");
 
         require(verifySeller(sell, _sellerSig), "Invalid seller signature.");
         require(verifyBuyer(buy, _buyerSig), "Invalid buyer signature.");
