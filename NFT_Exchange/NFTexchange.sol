@@ -214,13 +214,13 @@ contract NFTexchange {
         return allAdmins;
     }
 
-    function withdrawETH(address payable to, uint256 amountInWei) external onlyAdmin returns(bool) {
-        require(amountInWei <= address(this).balance, "Not enough ETH.");
+    function withdrawNative(address payable to, uint256 amountInWei) external onlyAdmin returns(bool) {
+        require(amountInWei <= address(this).balance, "Not enough fund.");
         to.transfer(amountInWei);
         return true;
     }
 
-    function withdrawERC20Token(address _tokenContract, address to, uint256 amount)
+    function withdrawToken(address _tokenContract, address to, uint256 amount)
      external onlyAdmin returns(bool) {
         IERC20 token = IERC20(_tokenContract);
         require(amount <= token.balanceOf(address(this)), "Not enough fund.");

@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./IERC20.sol";
 
 
 contract NFT is ERC721 {
@@ -87,6 +88,20 @@ contract NFT is ERC721 {
     function tokenURI(uint256 tokenId) public view virtual override returns(string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return _tokenURIs[tokenId];
+    }
+
+    function withdrawNative(address payable to, uint256 amountInWei) external onlyAdmin returns(bool) {
+        require(amountInWei <= address(this).balance, "Not enough fund.");
+        to.transfer(amountInWei);
+        return true;
+    }
+
+    function withdrawToken(address _tokenContract, address to, uint256 amount)
+     external onlyAdmin returns(bool) {
+        IERC20 token = IERC20(_tokenContract);
+        require(amount <= token.balanceOf(address(this)), "Not enough fund.");
+        token.transfer(to, amount);
+        return true;
     }
 
 }
