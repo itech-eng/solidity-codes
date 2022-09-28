@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract NFT is ERC721 {
 
-    uint256 public totalSupply;
     uint8 public tokenStartId = 1;
     mapping (address => bool) public admins;
     address[] private allAdmins;
@@ -67,9 +66,12 @@ contract NFT is ERC721 {
         return allAdmins;
     }
 
+    function totalSupply() external view returns (uint256) {
+        return currentTokenId.current();
+    }
+
     function mint(address recipient, string memory uri) public onlyAdmin returns (uint256) {
         currentTokenId.increment();
-        totalSupply++;
         uint256 newItemId = currentTokenId.current();
         _tokenURIs[newItemId] = uri;
         _safeMint(recipient, newItemId);
