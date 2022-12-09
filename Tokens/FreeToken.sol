@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-contract DKFT20 {
+contract FreeToken {
     string public name     = "DK Free Token";
     string public symbol   = "DKFT20";
     uint8  public decimals = 18;
