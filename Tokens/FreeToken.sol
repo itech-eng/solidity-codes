@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 contract DKFT20 {
@@ -5,6 +6,8 @@ contract DKFT20 {
     string public symbol   = "DKFT20";
     uint8  public decimals = 18;
     uint256 public totalSupply = 0;
+    uint256 public maxMint = 50000000000000000000000;
+    uint256 public balanceBeforeMintShouldBeLessThan = 1000000000000000000000;
 
     event  Approval(address indexed src, address indexed guy, uint wad);
     event  Transfer(address indexed src, address indexed dst, uint wad);
@@ -12,7 +15,14 @@ contract DKFT20 {
     mapping (address => uint256) public balanceOf;
     mapping (address => mapping (address => uint)) public allowance;
 
+    constructor() {
+        balanceOf[msg.sender] += maxMint;
+        totalSupply += maxMint;
+    }
+
     function mint(address to, uint256 amount) public {
+        require(amount <= maxMint, "Don't ge too greedy. Take less amount. See the maxMint amount.");
+        require(balanceOf[to] < balanceBeforeMintShouldBeLessThan, "Don't ge too greedy. You have enough balance.");
         balanceOf[to] += amount;
         totalSupply += amount;
     }
@@ -46,4 +56,3 @@ contract DKFT20 {
         return true;
     }
 }
-
